@@ -14,4 +14,8 @@ export class Tab1Page {
   navigateToNewWorkout() {
     this.router.navigateByUrl('/workout/new');
   }
+
+  login(){
+    this.router.navigateByUrl('login');
+  }
 }

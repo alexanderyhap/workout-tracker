@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,35 +10,32 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 
 export class LoginPage implements OnInit {
-  public errorMessage: string;
+  errorMessage: string = ''; // For displaying any error messages
 
   constructor(
+    private router: Router,
     private authService: AuthenticationService,
     private loadingController: LoadingController
   ) {}
 
-  async ngOnInit() {
-    // If coming back after logging into Auth0,
-    // and using CURRENT Implicit (web) Login
-    if (window.location.hash) {
-      const loadingIndicator = await this.showLoadingIndictator();
-      try {
-        await this.authService.handleLoginCallback(window.location.href);
-      } catch (e) {
-        this.errorMessage = e.message;
-      } finally {
-        loadingIndicator.dismiss();
-      }
-    }
+  ngOnInit() {
+    console.log("hello login")
+    // this.authService.isLoggedIn().then(isLoggedIn => {
+    //   if (isLoggedIn) {
+    //     this.router.navigate(['/dashboard']); // Or any other page
+    //   }
+    // });
   }
 
-  async login() {
-    // Display loading indicator while Auth Connect login window is open
+  //(click)="login()"
+  async login(username: string, password: string) {
     const loadingIndicator = await this.showLoadingIndictator();
     try {
-      await this.authService.login();
-    } catch (e) {
-      console.error(e.message);
+      const result = await this.authService.login(username, password);
+      this.authService.handleLoginCallback(null, result);
+    } catch (e: any) {
+      this.errorMessage = e.message;
+      this.authService.handleLoginCallback(e, null);
     } finally {
       loadingIndicator.dismiss();
     }
