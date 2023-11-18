@@ -1,0 +1,58 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding full-height">
+
+  <div class="content-area">
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <ion-img
+          src="assets/img/profile.webp"
+          alt="Enterance"
+          class="login-img"
+        ></ion-img>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center ion-align-self-center">
+        
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+    
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+      </ion-col>
+    </ion-row>
+
+
+
+  </div>
+
+</ion-content>
+
+<div class="bottom-section">
+  <ion-button (click)="logout()" fill="outline"><ion-icon name="log-out-outline"></ion-icon></ion-button>
+</div>

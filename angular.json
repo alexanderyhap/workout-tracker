@@ -13,6 +13,12 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@aws-crypto/sha256-js",
+              "buffer",
+              "isomorphic-unfetch",
+              "js-cookie"
+            ],
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",

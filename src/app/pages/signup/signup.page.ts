@@ -4,15 +4,16 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.page.html',
+  styleUrls: ['./signup.page.scss'],
 })
-
-export class LoginPage implements OnInit {
+export class SignupPage implements OnInit {
   username: string = '';
+  email: string = '';
   password: string = '';
   errorMessage: string = '';
+  passwordErrorMessage: string = '';
 
   constructor(
     private router: Router,
@@ -28,33 +29,34 @@ export class LoginPage implements OnInit {
     });
   }
 
-  async login(formValues: any) {
-    const { username, password } = formValues;
+  async signup(formValues: any) {
+    this.passwordErrorMessage = ''; // Reset password error message
+    const { username, email, password } = formValues;
     const loadingIndicator = await this.showLoadingIndictator();
 
     try {
-      console.log('trying to login');
-      const result = await this.authService.login(username, password);
-      this.authService.handleLoginCallback(null, result);
+      const result = await this.authService.signUp(username, email, password);
+      this.authService.handleSignupCallback(null, result);
     } catch (e: any) {
-      console.log('login error');
-
-      this.errorMessage = e.message;
-      this.authService.handleLoginCallback(e, null);
+      if (e.code === 'InvalidPasswordException') {
+        this.passwordErrorMessage = 'Invalid password. ' + (e.message || 'Password did not conform with policy.');
+        this.errorMessage = e.message;
+      } else {
+        // Handle other types of errors
+        this.errorMessage = e.message;
+      }
+      this.authService.handleSignupCallback(e, null);
     } finally {
       loadingIndicator.dismiss();
     }
   }
 
-  gotoSignup(){
-    this.router.navigateByUrl('/user/signup');
-  }
-
   private async showLoadingIndictator() {
     const loadingIndicator = await this.loadingController.create({
-      message: 'Opening login window...',
+      message: 'signing up...',
     });
     await loadingIndicator.present();
     return loadingIndicator;
   }
+
 }

@@ -1,50 +1,94 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="secondary">
-      <ion-button [routerLink]="['/login']">
-        <ion-icon slot="icon-only" name="person-circle"></ion-icon>
-      </ion-button>
-      <ion-button>
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Alxander, Welcome Back!</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <ion-item>
-    <ion-label>
-      <h2>Previous Workouts</h2>
-    </ion-label>
-  </ion-item>
 
-  <div *ngFor="let card of cards; let i = index">
+<ng-container *ngIf="isLoggedIn; else loggedOutTemplate">
+
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-button (click)="navigateToProfile()">
+          <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>{{ username }}, Welcome Back!</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <ion-content [fullscreen]="true" class="ion-padding">
+    <ion-item>
+      <ion-label>
+        <h2>Previous Workouts</h2>
+      </ion-label>
+    </ion-item>
+  
+    <div *ngFor="let card of cards; let i = index">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Card Title {{ i + 1 }}</ion-card-title>
+          <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+        </ion-card-header>
+      
+        <ion-card-content>
+          Here's a small text description for the card content. Nothing more, nothing less.
+        </ion-card-content>
+      
+        <ion-button fill="clear">Action 1</ion-button>
+        <ion-button fill="clear">Action 2</ion-button>
+      </ion-card>
+    </div>
+  
+    <ion-fab slot="fixed" vertical="bottom" horizontal="center">
+      <ion-fab-button (click)="navigateToNewWorkout()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  
+    <!-- <app-explore-container name="Alxandr"></app-explore-container> -->
+  </ion-content>
+</ng-container>
+
+<!-- ========== -->
+<!-- LOGGED OUT -->
+<!-- ========== -->
+<ng-template #loggedOutTemplate>
+  <ion-header [translucent]="true">
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button (click)="navigateToLogin()">
+          <ion-icon slot="icon-only" name="person-circle"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="primary">
+        <ion-button>
+          <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Welcome To Wrkout Trackr!</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- https://www.google.com/search?sca_esv=583538769&rlz=1C1CHBF_enUS1039US1042&sxsrf=AM9HkKkqy0Yj3Ti0CYSuwXrN3xwyQSnYng:1700279830963&q=workout+illustration&tbm=isch&source=lnms&sa=X&ved=2ahUKEwjVm9_608yCAxV8g4kEHTq9BGgQ0pQJegQIDBAB&biw=1536&bih=715&dpr=1.25#imgrc=FIjkn4ZvWeEumM -->
+  <ion-content [fullscreen]="true" class="ion-padding">
     <ion-card>
-      <ion-card-header>
-        <ion-card-title>Card Title {{ i + 1 }}</ion-card-title>
-        <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-      </ion-card-header>
-    
-      <ion-card-content>
-        Here's a small text description for the card content. Nothing more, nothing less.
-      </ion-card-content>
-    
-      <ion-button fill="clear">Action 1</ion-button>
-      <ion-button fill="clear">Action 2</ion-button>
+      <ion-row>
+        <ion-col size-md="3" size="12" class="ion-padding ion-blue-bkg">
+          <img
+            src="assets/img/logged-out-illustration.png"
+            alt="wrkout trackr"
+            loading="lazy"
+          />
+        </ion-col>
+        <ion-col size-md="9" size="12" class="welcome">
+          <ion-card-header>
+            <ion-card-title> Welcome to Wrkout Trakr</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-button (click)="navigateToLogin()" shape="round" color="primary"> Login </ion-button>
+          </ion-card-content>
+        </ion-col>
+      </ion-row>
     </ion-card>
-  </div>
+  </ion-content>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-    <ion-fab-button (click)="navigateToNewWorkout()">
-      <ion-icon name="add-circle-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
-
-  <!-- <app-explore-container name="Alxandr"></app-explore-container> -->
-</ion-content>
+</ng-template>

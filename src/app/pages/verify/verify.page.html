@@ -1,0 +1,58 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Verify</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding full-height">
+  <div class="content-area">
+    <ion-row class="ion-justify-content-center">
+      <ion-col>
+        <ion-img
+          src="assets/img/email-verification.png"
+          alt="verify"
+          class="login-img"
+        ></ion-img>
+        <ion-text class="login-text"><h3>verify your email</h3></ion-text>
+      </ion-col>
+      
+    </ion-row>
+
+    <form #verifyForm="ngForm" (ngSubmit)="verifyAccount(verifyForm.value)">            
+      <ion-text><p>A verification email has been sent to your email address. Please verify your account.</p></ion-text>
+            
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center ion-align-self-center">                    
+          <ion-input label="Verification Code" labelPlacement="stacked" type="text" required [(ngModel)]="verificationCode" name="verificationCode"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <!-- Display Error Message -->
+      <ion-row *ngIf="errorMessage" class="ion-justify-content-center">
+        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center ion-align-self-center">
+          <ion-text color="danger" class="errorMessage-text-block">{{ errorMessage }}</ion-text>
+        </ion-col>
+      </ion-row>
+
+      <!-- Submit Button -->
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center ion-align-self-center">                    
+          <ion-button type="submit" color="danger" expand="block">Verify Email</ion-button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-justify-content-center">
+        <ion-col size-md="6" size-lg="5" size-xs="12" class="ion-text-center ion-align-self-center">                    
+          <ion-button (click)="resendCode()" fill="clear" expand="block">resend code</ion-button>
+        </ion-col>
+      </ion-row>
+      
+    </form>
+    
+  </div>
+</ion-content>
+
+<div class="bottom-section"></div>
